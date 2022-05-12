@@ -1,20 +1,16 @@
 package com.xiesu.commonbase.response;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
-import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.text.MessageFormat;
 import java.util.*;
-import java.util.concurrent.ConcurrentSkipListSet;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
 public class ResponseDefaultMsg {
     private static final String resourceBundleName = "i18n/codeMessage";
 
-    private static volatile Set<ResourceBundle> resourceBundleSet;
+    private static volatile Map<Locale, ResourceBundle> resourceBundleMap;
 
 
     /**
@@ -23,38 +19,59 @@ public class ResponseDefaultMsg {
      * @param code
      * @return
      */
-    public static String getDefaultMsg(Integer code) {
-        if (properties == null) {
-            loadProperties(msgCodeFileName);
-        }
-        if (properties != null) {
-            return properties.getProperty(code.toString());
-        } else {
-            return null;
-        }
+//    public static String getDefaultMsg(Integer code) {
+//        if (properties == null) {
+//            loadProperties(msgCodeFileName);
+//        }
+//        if (properties != null) {
+//            return properties.getProperty(code.toString());
+//        } else {
+//            return null;
+//        }
+//    }
+
+
+
+
+
+
+    public String getDefaultMsg(String code,String... params){
+        return getDefaultMsg(code,Locale.getDefault(),params);
     }
 
-
-    public static String getDefaultMsg(Integer code, Locale locale) {
+    public String getDefaultMsg(String code, Locale locale,String... params) {
         assert code != null;
+        if (locale==null) locale=Locale.getDefault();
 
-        if (resourceBundleList == null) {
+        getResourceBundleList(locale);
+        ResourceBundle resourceBundle=resourceBundleMap.get(locale);
+        String msg=resourceBundle.getString(code);
+        MessageFormat messageFormat=new MessageFormat(msg);
 
-        }
-
-
+       return messageFormat.format(params);
     }
 
-    public final List<ResourceBundle> getResourceBundleList(Locale locale) {
-        if (resourceBundleSet == null) {
+
+//    public MessageFormat
+
+    /**
+     * 获取指定local的ResourceBundle
+     *
+     * @param locale
+     */
+    private void getResourceBundleList(Locale locale) {
+        assert locale !=null;
+        if (resourceBundleMap == null) {
             synchronized (this) {//此处this指的是调用者的线程对象
-                if (resourceBundleSet == null) {
-                    if (locale == null) locale = Locale.getDefault();
-                    resourceBundleSet=new ConcurrentSkipListSet<ResourceBundle>()
+                if (resourceBundleMap == null) {
+                    resourceBundleMap = new ConcurrentHashMap<Locale, ResourceBundle>();
                 }
             }
         }
 
+        if (!resourceBundleMap.containsKey(locale)) {
+            resourceBundleMap.put(locale, ResourceBundle.getBundle(resourceBundleName, locale));
+        }
 
     }
 
