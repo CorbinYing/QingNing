@@ -6,19 +6,25 @@
     <groupId>com.xiesu</groupId>
     <artifactId>QingNing</artifactId>
     <packaging>pom</packaging>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>${project.version}</version>
+
     <name>QingNing</name>
     <description>QingNing</description>
 
     <modules>
         <module>eureka-server</module>
         <module>nacos-config</module>
+        <module>bookkeeping</module>
+        <module>common-base</module>
     </modules>
 
 
     <properties>
+        <project.version>0.0.1-SNAPSHOT</project.version>
+
         <java.version>1.8</java.version>
         <nacos.version>2021.1</nacos.version>
+
     </properties>
 
 

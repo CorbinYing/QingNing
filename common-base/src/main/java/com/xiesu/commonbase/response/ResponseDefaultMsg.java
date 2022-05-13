@@ -29,26 +29,24 @@ public class ResponseDefaultMsg {
 //            return null;
 //        }
 //    }
-
-
-
-
-
-
-    public String getDefaultMsg(String code,String... params){
-        return getDefaultMsg(code,Locale.getDefault(),params);
+    public static String getDefaultMsg(Integer code) {
+        return getDefaultMsg(code, null);
     }
 
-    public String getDefaultMsg(String code, Locale locale,String... params) {
+    public static String getDefaultMsg(Integer code, String... params) {
+        return getDefaultMsg(code, Locale.getDefault(), params);
+    }
+
+    public static String getDefaultMsg(Integer code, Locale locale, String... params) {
         assert code != null;
-        if (locale==null) locale=Locale.getDefault();
+        if (locale == null) locale = Locale.getDefault();
 
-        getResourceBundleList(locale);
-        ResourceBundle resourceBundle=resourceBundleMap.get(locale);
-        String msg=resourceBundle.getString(code);
-        MessageFormat messageFormat=new MessageFormat(msg);
+        getResourceBundleMap(locale);
+        ResourceBundle resourceBundle = resourceBundleMap.get(locale);
+        String msg = resourceBundle.getString(String.valueOf(code));
+        MessageFormat messageFormat = new MessageFormat(msg);
 
-       return messageFormat.format(params);
+        return messageFormat.format(params);
     }
 
 
@@ -59,10 +57,10 @@ public class ResponseDefaultMsg {
      *
      * @param locale
      */
-    private void getResourceBundleList(Locale locale) {
-        assert locale !=null;
+    private static void getResourceBundleMap(Locale locale) {
+        assert locale != null;
         if (resourceBundleMap == null) {
-            synchronized (this) {//此处this指的是调用者的线程对象
+            synchronized (ResponseDefaultMsg.class) {//此处this指的是调用者的线程对象
                 if (resourceBundleMap == null) {
                     resourceBundleMap = new ConcurrentHashMap<Locale, ResourceBundle>();
                 }
