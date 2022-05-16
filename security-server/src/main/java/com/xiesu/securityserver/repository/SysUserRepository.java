@@ -7,6 +7,6 @@ import java.util.Optional;
 
 public interface SysUserRepository extends JpaRepository<SysUser,Integer> {
 
-   Optional<SysUser> findByAccountId(String accountId);
+   Optional<SysUser> findByUserId(String uid);
 
 }

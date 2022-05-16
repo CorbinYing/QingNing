@@ -12,8 +12,8 @@ public class SysUserServiceImpl implements SysUserService {
     @Autowired
     private SysUserRepository sysUserRepository;
 
-    public Optional<SysUser> findByAccountId(String accountId) {
-        return sysUserRepository.findByAccountId(accountId);
+    public Optional<SysUser> findByUserId(String uid) {
+        return sysUserRepository.findByUserId(uid);
     }
 
 

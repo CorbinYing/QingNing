@@ -16,6 +16,8 @@
         <module>nacos-config</module>
         <module>bookkeeping</module>
         <module>common-base</module>
+        <module>common-utils</module>
+        <module>security-server</module>
     </modules>
 
 
@@ -68,4 +70,5 @@
             <artifactId>spring-cloud-starter-bootstrap</artifactId>
         </dependency>
     </dependencies>
+
 </project>

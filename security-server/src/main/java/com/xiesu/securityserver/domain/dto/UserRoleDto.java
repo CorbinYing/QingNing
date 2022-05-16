@@ -8,6 +8,9 @@ import lombok.Setter;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * @author xiesu
+ */
 @Getter
 @Setter
 public class UserRoleDto extends SysUser {

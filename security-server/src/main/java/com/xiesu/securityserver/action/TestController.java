@@ -15,7 +15,7 @@ public class TestController extends BaseController {
 
     @GetMapping(value = "/get-user")
     public SysUser getUser(@RequestParam String userName){
-        return sysUserService.findByAccountId(userName).orElse(null);
+        return sysUserService.findByUserId(userName).orElse(null);
     }
 
 
