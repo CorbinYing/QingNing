@@ -109,5 +109,7 @@ spring:
             insert-allow: true
             # 删除数据操作
             delete-allow: true
-        
+
+  jpa:
+    show-sql: on
 

@@ -3,13 +3,12 @@ package com.xiesu.securityserver;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import javax.persistence.EntityManagerFactory;
-
-//@EnableEurekaClient
+/**
+ * @author xiesu
+ */ //@EnableEurekaClient
 //@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
 @SpringBootApplication
 @EnableTransactionManagement
@@ -24,10 +23,10 @@ public class SecurityServerApplication {
     /**
      * 配置事务管理器，搭配@EnableTransactionManager使用，不过spring boot 已经默认开启了事务，只有项目大时才需要这么做
      */
-    @Bean
-    public PlatformTransactionManager txManager(EntityManagerFactory factory) {
-        return new JpaTransactionManager(factory);
-    }
+//    @Bean
+//    public PlatformTransactionManager txManager(EntityManagerFactory factory) {
+//        return new JpaTransactionManager(factory);
+//    }
 
     public static void main(String[] args) {
         SpringApplication.run(SecurityServerApplication.class, args);
