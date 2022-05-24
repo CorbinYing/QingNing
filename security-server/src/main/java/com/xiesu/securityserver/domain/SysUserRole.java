@@ -1,5 +1,6 @@
 package com.xiesu.securityserver.domain;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.xiesu.commonbase.domain.AbstractEntity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +13,7 @@ import lombok.Setter;
 /**
  * @author xiesu
  */
-@Table(name = "sys_user_role")
+@TableName(value = "sys_user_role")
 @Getter
 @Setter
 @Entity

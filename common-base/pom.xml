@@ -16,11 +16,12 @@
     </properties>
     <dependencies>
 
+<!--        该用mybaties，该依赖不需要了-->
         <!--实体类使用注解@Id-->
-        <dependency>
-            <groupId>jakarta.persistence</groupId>
-            <artifactId>jakarta.persistence-api</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>jakarta.persistence</groupId>-->
+<!--            <artifactId>jakarta.persistence-api</artifactId>-->
+<!--        </dependency>-->
         <!-- 使用spring-boot-web-starter 中的子包 注解-->
         <dependency>
             <groupId>org.springframework</groupId>
