@@ -1,6 +1,6 @@
 package com.xiesu.securityserver.service;
 
-import com.xiesu.securityserver.entity.SysUser;
+import com.xiesu.securityserver.entity.SysUserRole;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author xiesu
  * @since 2022-05-25
  */
-public interface SysUserService extends IService<SysUser> {
+public interface SysUserRoleService extends IService<SysUserRole> {
 
 }

@@ -1,4 +1,4 @@
-# 应用名称
+
 generate:
   author: xiesu
 
@@ -9,8 +9,8 @@ generate:
     pwd: 123456
 #  需要生成代码的表名
     tables: sys_user,sys_role,sys_user_role
-#    忽略表前缀名
-    table_prefix: sys_
+#    生成entity、service、controller的对应类名忽略表前缀名
+    table_prefix:
 #    忽略表后缀名
     table-suffix:
 
@@ -20,12 +20,16 @@ generate:
     output-dir: D://
     project-name: QingNing
     group-id: com.xiesu
-    artifact-id: QingNing
+    artifact-id: security-server
 
 #   生成实体类要继承的基类，没有不写
     entity:
-      super-entity: com.xiesu.qingning.base.BaseEntity
+      super-entity: com.xiesu.commonbase.domain.AbstractEntity
 #      对应的列名
       super-entity-columns: id,update_time,create_time,version
-
+#     对应的controller
+    controller:
+      super-controller: com.xiesu.commonbase.controller.BaseController
+server:
+  port: 0
 

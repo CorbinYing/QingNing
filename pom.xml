@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.xiesu</groupId>
@@ -69,7 +69,16 @@
         <artifactId>mybatis-plus-annotation</artifactId>
         <version>3.5.1</version>
       </dependency>
+
+      <!-- https://mvnrepository.com/artifact/io.springfox/springfox-boot-starter -->
+      <dependency>
+        <groupId>io.springfox</groupId>
+        <artifactId>springfox-boot-starter</artifactId>
+        <version>3.0.0</version>
+      </dependency>
+
     </dependencies>
+
   </dependencyManagement>
 
   <!--  引入公共依赖        -->

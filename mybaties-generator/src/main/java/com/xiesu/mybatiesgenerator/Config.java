@@ -41,6 +41,8 @@ public class Config implements CommandLineRunner {
     private static String super_entity;
     private static List<String> super_entity_columns;
 
+    private static String super_controller;
+
 
     public void before() {
         url = environment.getProperty("generate.datasource.url");
@@ -52,10 +54,11 @@ public class Config implements CommandLineRunner {
         author = environment.getProperty("generate.author");
         outputDir = environment.getProperty("generate.project.output-dir");
         project_name = environment.getProperty("generate.project.project-name");
-        group_id = environment.getProperty("generate.project.group-id");
-        artifact_id = environment.getProperty("generate.project.artifact-id");
+        group_id = Objects.requireNonNull(environment.getProperty("generate.project.group-id"));
+        artifact_id = Objects.requireNonNull(environment.getProperty("generate.project.artifact-id"));
         super_entity = environment.getProperty("generate.project.entity.super-entity");
         super_entity_columns = Arrays.stream(Objects.requireNonNull(environment.getProperty("generate.project.entity.super-entity-columns")).split(",")).collect(Collectors.toList());
+        super_controller = environment.getProperty("generate.project.controller.super-controller");
 
 
     }
@@ -66,24 +69,16 @@ public class Config implements CommandLineRunner {
         before();
 
         String basePath = outputDir + project_name;
-        FastAutoGenerator.create(url, username, pwd)
-                .globalConfig(builder -> {
+        FastAutoGenerator.create(url, username, pwd).globalConfig(builder -> {
 
                     builder.author(author) // 设置作者
                             .enableSwagger() // 开启 swagger 模式
                             .fileOverride() // 覆盖已生成文件
                             .outputDir(basePath + "/src/main/java"); // 指定输出目录
-                })
-                .packageConfig(builder -> {
-                    builder.parent(group_id) // 设置父包名
-                            .moduleName(artifact_id) // 设置父包模块名
-                            .entity("entity")
-                            .service("service")
-                            .serviceImpl("service.impl")
-                            .controller("controller")
-                            .mapper("mapper")
-                            .xml("mapper")
-                            .pathInfo(Collections.singletonMap(OutputFile.xml, basePath + "/src/main/resources/mapper/")); // 设置mapperXml生成路径
+                }).packageConfig(builder -> {
+                    builder.parent(group_id.replace("-", "")) // 设置父包名
+                            .moduleName(artifact_id.replace("-", "")) // 设置父包模块名
+                            .entity("entity").service("service").serviceImpl("service.impl").controller("controller").mapper("mapper").xml("mapper").pathInfo(Collections.singletonMap(OutputFile.xml, basePath + "/src/main/resources/mapper/")); // 设置mapperXml生成路径
                 })
 
 
@@ -97,34 +92,28 @@ public class Config implements CommandLineRunner {
                             // service 策略配置
                             .serviceBuilder()
                             // 	格式化文件名称
-                            .formatServiceFileName("%sService")
-                            .formatServiceImplFileName("%sServiceImpl")
+                            .formatServiceFileName("%sService").formatServiceImplFileName("%sServiceImpl")
 
                             // 实体策略配置
                             .entityBuilder()
                             // 开启 lombok 模型
                             .enableLombok()
                             // 开启生成实体时生成字段注解
-                            .enableTableFieldAnnotation()
-                            .superClass(super_entity)
-                            .addSuperEntityColumns(super_entity_columns)
+                            .enableTableFieldAnnotation().superClass(super_entity).addSuperEntityColumns(super_entity_columns)
 
 
                             // controller 策略配置
-                            .controllerBuilder()
-                            .formatFileName("%sController")
+                            .controllerBuilder().formatFileName("%sController")
                             // 开启生成@RestController 控制器
                             .enableRestStyle()
-
+                            //驼峰转连接字符
+                            .enableHyphenStyle()
+                            .superClass(super_controller)
 
                             // 	mapper 策略配置
                             .mapperBuilder()
                             // 设置父类
-                            .superClass(BaseMapper.class)
-                            .enableBaseResultMap()
-                            .formatMapperFileName("%sMapper")
-                            .enableMapperAnnotation()
-                            .formatXmlFileName("%sMapper");
+                            .superClass(BaseMapper.class).enableBaseResultMap().formatMapperFileName("%sMapper").enableMapperAnnotation().formatXmlFileName("%sMapper");
                 })
 //                .templateEngine(new VelocityTemplateEngine())
                 .templateEngine(new FreemarkerTemplateEngine()) // 使用Freemarker引擎模板，默认的是Velocity引擎模板
