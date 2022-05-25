@@ -1,0 +1,31 @@
+# 应用名称
+generate:
+  author: xiesu
+
+
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/qingning
+    username: root
+    pwd: 123456
+#  需要生成代码的表名
+    tables: sys_user,sys_role,sys_user_role
+#    忽略表前缀名
+    table_prefix: sys_
+#    忽略表后缀名
+    table-suffix:
+
+
+  project:
+#    代码生成的目录
+    output-dir: D://
+    project-name: QingNing
+    group-id: com.xiesu
+    artifact-id: QingNing
+
+#   生成实体类要继承的基类，没有不写
+    entity:
+      super-entity: com.xiesu.qingning.base.BaseEntity
+#      对应的列名
+      super-entity-columns: id,update_time,create_time,version
+
+
