@@ -13,7 +13,7 @@ import com.xiesu.commonbase.controller.BaseController;
  * @since 2022-05-25
  */
 @RestController
-@RequestMapping("/securityserver/sys-role")
+@RequestMapping("/security-server/sys-role")
 public class SysRoleController extends BaseController {
 
 }

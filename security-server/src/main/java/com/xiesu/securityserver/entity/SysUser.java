@@ -3,9 +3,11 @@ package com.xiesu.securityserver.entity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.xiesu.commonbase.domain.AbstractEntity;
-import java.io.Serializable;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.HashSet;
+import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -32,6 +34,12 @@ public class SysUser extends AbstractEntity {
     @ApiModelProperty("密码")
     @TableField("pwd")
     private String pwd;
+
+
+    @ApiModelProperty("用户关联的角色")
+    @TableField(exist = false)
+    private Set<SysRole> roleSet = new HashSet<>();
+
 
 
 }

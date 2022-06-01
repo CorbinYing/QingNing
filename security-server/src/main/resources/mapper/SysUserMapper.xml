@@ -1,15 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xiesu.securityserver.mapper.SysUserMapper">
 
-    <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.xiesu.securityserver.entity.SysUser">
-        <result column="id" property="id" />
-        <result column="create_time" property="createTime" />
-        <result column="update_time" property="updateTime" />
-        <result column="version" property="version" />
-        <result column="uid" property="uid" />
-        <result column="pwd" property="pwd" />
-    </resultMap>
+  <!-- 通用查询映射结果 -->
+  <resultMap id="BaseResultMap" type="com.xiesu.securityserver.entity.SysUser">
+    <result column="id" property="id"/>
+    <result column="create_time" property="createTime"/>
+    <result column="update_time" property="updateTime"/>
+    <result column="version" property="version"/>
+    <result column="uid" property="uid"/>
+    <result column="pwd" property="pwd"/>
+    <collection property="roleSet" javaType="java.util.Set"
+      ofType="com.xiesu.securityserver.entity.SysRole"
+      select="com.xiesu.securityserver.mapper.SysRoleMapper.selectByUserUid"
+      column="uid" fetchType="lazy">
+    </collection>
+  </resultMap>
+
+  <sql id="baseColumns>">
+    sys_user
+    .
+    id
+    ,sys_user.create_time,sys_user.update_time,sys_user.version,sys_user.uid,sys_user.pwd
+  </sql>
+  <select id="selectByUid" resultType="com.xiesu.securityserver.entity.SysUser">
+    select
+    <include refid="baseColumns>"></include>
+    from sys_user as su
+    left join sys_user_role as sur on su.uid = sur.uid
+    left join sys_role as sr on sr.role_name = sur.role_name
+    where su.uid = #{uid}
+
+  </select>
 
 </mapper>

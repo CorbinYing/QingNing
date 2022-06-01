@@ -1,15 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xiesu.securityserver.mapper.SysRoleMapper">
 
-    <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.xiesu.securityserver.entity.SysRole">
-        <result column="id" property="id" />
-        <result column="create_time" property="createTime" />
-        <result column="update_time" property="updateTime" />
-        <result column="version" property="version" />
-        <result column="role_name" property="roleName" />
-        <result column="role_desc" property="roleDesc" />
-    </resultMap>
+  <!-- 通用查询映射结果 -->
+  <resultMap id="BaseResultMap" type="com.xiesu.securityserver.entity.SysRole">
+    <result column="id" property="id"/>
+    <result column="create_time" property="createTime"/>
+    <result column="update_time" property="updateTime"/>
+    <result column="version" property="version"/>
+    <result column="role_name" property="roleName"/>
+    <result column="role_desc" property="roleDesc"/>
+  </resultMap>
+
+  <sql id="baseColumns">
+    sys_role
+    .
+    id
+    , sys_role.create_time, sys_role.update_time,sys_role.version,sys_role.role_name,
+        sys_role.role_desc
+
+  </sql>
+
+  <select id="selectByUserUid" resultType="com.xiesu.securityserver.entity.SysRole">
+    select
+    <include refid="baseColumns"></include>
+    from sys_role
+    LEFT JOIN sys_user_role ON sys_role.role_name = sys_user_role.role_name
+    WHERE sys_user_role.uid = #{uid}
+
+  </select>
+
 
 </mapper>

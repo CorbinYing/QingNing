@@ -1,9 +1,10 @@
 package com.xiesu.securityserver.security;
 
 import com.xiesu.commonbase.except.ExposedException;
-import com.xiesu.securityserver.domain.SysRole;
-import com.xiesu.securityserver.domain.SysUser;
-import com.xiesu.securityserver.repository.SysUserRepository;
+
+import com.xiesu.securityserver.entity.SysRole;
+import com.xiesu.securityserver.entity.SysUser;
+import com.xiesu.securityserver.mapper.SysUserMapper;
 import java.util.Collection;
 import java.util.stream.Collectors;
 import javax.annotation.Resource;
@@ -23,11 +24,11 @@ import org.springframework.stereotype.Service;
 public class UserDetailServiceImpl implements UserDetailsService {
 
     @Resource
-    private SysUserRepository sysUserRepository;
+    private SysUserMapper sysUserRepository;
 
     @Override
     public UserDetails loadUserByUsername(String uid) throws UsernameNotFoundException {
-        SysUser sysUser = sysUserRepository.findByUserId(uid).orElse(null);
+        SysUser sysUser = sysUserRepository.selectByUid(uid);
         if (sysUser == null) {
             throw new ExposedException();
         }

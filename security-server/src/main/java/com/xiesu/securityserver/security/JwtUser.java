@@ -1,6 +1,6 @@
 package com.xiesu.securityserver.security;
 
-import com.xiesu.securityserver.domain.SysUser;
+import com.xiesu.securityserver.entity.SysUser;
 import java.util.Collection;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
@@ -54,7 +54,7 @@ public class JwtUser implements UserDetails {
     }
 
     public JwtUser(SysUser user, Collection<GrantedAuthority> authorities) {
-        this.username = user.getUserId();
+        this.username = user.getUid();
         this.password = user.getPwd();
         this.authorities = authorities;
 

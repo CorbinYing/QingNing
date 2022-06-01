@@ -2,6 +2,7 @@ package com.xiesu.securityserver.service;
 
 import com.xiesu.securityserver.entity.SysUser;
 import com.baomidou.mybatisplus.extension.service.IService;
+import java.util.Optional;
 
 /**
  * <p>
@@ -12,5 +13,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2022-05-25
  */
 public interface SysUserService extends IService<SysUser> {
+
+   Optional<SysUser>  selectByUid(String uid);
 
 }
