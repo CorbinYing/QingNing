@@ -2,9 +2,6 @@ package com.xiesu.securityserver.security;
 
 import com.xiesu.commonbase.except.ExposedException;
 
-import com.xiesu.securityserver.entity.SysRole;
-import com.xiesu.securityserver.entity.SysUser;
-import com.xiesu.securityserver.mapper.SysUserMapper;
 import java.util.Collection;
 import java.util.stream.Collectors;
 import javax.annotation.Resource;

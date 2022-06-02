@@ -4,16 +4,18 @@
     <modelVersion>4.0.0</modelVersion>
 
 
+    <parent>
+        <groupId>com.xiesu</groupId>
+        <version>${project.version}</version>
+        <artifactId>QingNing</artifactId>
+    </parent>
+
+
     <artifactId>mybaties-generator</artifactId>
     <name>mybaties-generator</name>
     <description>mybaties-generator</description>
 
-    <parent>
-        <groupId>com.xiesu</groupId>
-        <version>${project.version}</version>
-        <!--        <version>0.0.1-SNAPSHOT</version>-->
-        <artifactId>QingNing</artifactId>
-    </parent>
+
 
 
     <dependencies>

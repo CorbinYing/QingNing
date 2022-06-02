@@ -4,8 +4,8 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.xiesu</groupId>
+        <version>${project.version}</version>
         <artifactId>QingNing</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>eureka-server</artifactId>

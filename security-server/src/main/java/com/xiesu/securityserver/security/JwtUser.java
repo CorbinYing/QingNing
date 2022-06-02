@@ -1,6 +1,5 @@
 package com.xiesu.securityserver.security;
 
-import com.xiesu.securityserver.entity.SysUser;
 import java.util.Collection;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;

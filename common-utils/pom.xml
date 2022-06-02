@@ -4,17 +4,15 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.xiesu</groupId>
+        <version>${project.version}</version>
         <artifactId>QingNing</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>common-utils</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
     <name>common-utils</name>
     <description>common-utils</description>
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
+
+
 
     <build>
         <plugins>

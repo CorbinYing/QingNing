@@ -4,12 +4,13 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.xiesu</groupId>
+		<version>${project.version}</version>
 		<artifactId>QingNing</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>nacos-config</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<name>nacos-config</name>
+	<description>nacos-config</description>
 
 	<properties>
 		<java.version>1.8</java.version>
