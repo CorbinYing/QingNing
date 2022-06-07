@@ -2,6 +2,8 @@ package com.xiesu.commonbase.domain;
 
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.xiesu.commonbase.constant.ColumnConstant;
+import java.util.Objects;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,6 +19,9 @@ import java.time.LocalDate;
 public abstract class AbstractEntity implements Serializable, Cloneable {
 
 
+    /**
+     * 主键
+     */
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
@@ -31,11 +36,26 @@ public abstract class AbstractEntity implements Serializable, Cloneable {
     private LocalDate updateTime;
 
     /**
-     * 乐观锁
+     * 乐观锁字段
      */
     @Version
+    @TableField(value = "version")
     private Integer version;
 
+    /**
+     * 删除标志，默认为0
+     */
+    @TableField(value = "delete_flag")
+    private Long deleteFlag;
+
+    /**
+     * 该条记录是否是可用的
+     * @return boolean
+     */
+    public boolean isUsable() {
+        Objects.requireNonNull(deleteFlag);
+        return ColumnConstant.INIT_DELETE_FLAG == deleteFlag;
+    }
 
     @Override
     public AbstractEntity clone() {
@@ -45,4 +65,28 @@ public abstract class AbstractEntity implements Serializable, Cloneable {
             throw new AssertionError();
         }
     }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof AbstractEntity)) {
+            return false;
+        }
+        AbstractEntity that = (AbstractEntity) o;
+        return com.google.common.base.Objects.equal(id, that.id)
+                && com.google.common.base.Objects.equal(createTime, that.createTime)
+                && com.google.common.base.Objects.equal(updateTime, that.updateTime)
+                && com.google.common.base.Objects.equal(version, that.version)
+                && com.google.common.base.Objects.equal(deleteFlag, that.deleteFlag);
+    }
+
+    @Override
+    public int hashCode() {
+        return com.google.common.base.Objects.hashCode(id, createTime, updateTime, version,
+                deleteFlag);
+    }
+
 }

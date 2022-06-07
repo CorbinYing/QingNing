@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */ //@EnableEurekaClient
 //@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
 @SpringBootApplication
-@EnableTransactionManagement
+//@EnableTransactionManagement
 public class SecurityServerApplication {
 
     @Bean

@@ -3,33 +3,42 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xiesu.securityserver.mapper.SysRoleMapper">
 
+  
+
   <!-- 通用查询映射结果 -->
   <resultMap id="BaseResultMap" type="com.xiesu.securityserver.entity.SysRole">
     <result column="id" property="id"/>
+    <result column="version" property="version"/>
+    <result column="delete_flag" property="deleteFlag"/>
     <result column="create_time" property="createTime"/>
     <result column="update_time" property="updateTime"/>
-    <result column="version" property="version"/>
     <result column="role_name" property="roleName"/>
     <result column="role_desc" property="roleDesc"/>
   </resultMap>
 
-  <sql id="baseColumns">
-    sys_role
-    .
-    id
-    , sys_role.create_time, sys_role.update_time,sys_role.version,sys_role.role_name,
-        sys_role.role_desc
-
+  <sql id="BaseField">
+    id,
+    version,delete_flag,create_time,update_time,role_name,role_desc
   </sql>
 
-  <select id="selectByUserUid" resultType="com.xiesu.securityserver.entity.SysRole">
-    select
-    <include refid="baseColumns"></include>
-    from sys_role
-    LEFT JOIN sys_user_role ON sys_role.role_name = sys_user_role.role_name
-    WHERE sys_user_role.uid = #{uid}
+  <select id="findByAccountId" parameterType="string" resultMap="BaseResultMap">
+    select sr.id,
+           sr.version,
+           sr.delete_flag,
+           sr.create_time,
+           sr.update_time,
+           sr.role_name,
+           sr.role_desc
+    from sys_account sa
+           inner join sys_account_role sar on
+          sar.delete_flag = 0 and
+          sa.account_id = sar.account_id
+           inner join sys_role sr on
+          sr.delete_flag = 0 and
+          sar.role_name = sr.role_name
+    where sa.delete_flag = 0
+      and sa.account_id = #{accountId}
 
   </select>
-
 
 </mapper>

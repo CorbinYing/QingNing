@@ -6,9 +6,9 @@ generate:
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/qingning
     username: root
-    pwd: 123456
+    pwd: Aa123456
 #  需要生成代码的表名
-    tables: sys_user,sys_role,sys_user_role
+    tables: sys_account,sys_role,sys_account_role
 #    生成entity、service、controller的对应类名忽略表前缀名
     table_prefix:
 #    忽略表后缀名
@@ -17,7 +17,7 @@ generate:
 
   project:
 #    代码生成的目录
-    output-dir: D://
+    output-dir: /Users/xiesu/Desktop/
     project-name: QingNing
     group-id: com.xiesu
     artifact-id: security-server
@@ -26,7 +26,7 @@ generate:
     entity:
       super-entity: com.xiesu.commonbase.domain.AbstractEntity
 #      对应的列名
-      super-entity-columns: id,update_time,create_time,version
+      super-entity-columns: id,update_time,create_time,version,delete_flag
 #     对应的controller
     controller:
       super-controller: com.xiesu.commonbase.controller.BaseController
