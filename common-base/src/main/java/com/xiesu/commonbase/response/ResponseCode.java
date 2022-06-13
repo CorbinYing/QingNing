@@ -10,11 +10,6 @@ public class ResponseCode implements Serializable {
     public static final Integer SUCC_0 = 0;
 
     /**
-     * 成功,结果为空
-     */
-    public static final Integer SUCC_1 = 1;
-
-    /**
      * 参数错误
      */
     public static final Integer ERR_10001 = 10001;
@@ -76,4 +71,6 @@ public class ResponseCode implements Serializable {
      *
      */
     public static final Integer ERR_11009 = 11009;
+
+
 }

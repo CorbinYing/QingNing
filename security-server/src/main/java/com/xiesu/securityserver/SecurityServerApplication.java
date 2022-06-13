@@ -1,16 +1,18 @@
 package com.xiesu.securityserver;
 
+import com.xiesu.commonbase.handler.ResponseHandlerAdvice;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * @author xiesu
  */ //@EnableEurekaClient
 //@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.xiesu")
+@Import(ResponseHandlerAdvice.class)
 //@EnableTransactionManagement
 public class SecurityServerApplication {
 

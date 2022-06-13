@@ -5,41 +5,28 @@ import lombok.extern.slf4j.Slf4j;
 import java.text.MessageFormat;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import org.springframework.util.Assert;
 
+/**
+ * 自定义读取国际化配置文件
+ */
 @Slf4j
 public class ResponseDefaultMsg {
-    private static final String resourceBundleName = "i18n/codeMessage";
+
+    private static final String RESOURCE_BUNDLE_NAME = "i18n/codeMessage";
 
     private static volatile Map<Locale, ResourceBundle> resourceBundleMap;
 
 
-    /**
-     * 获取默认信息
-     *
-     * @param code
-     * @return
-     */
-//    public static String getDefaultMsg(Integer code) {
-//        if (properties == null) {
-//            loadProperties(msgCodeFileName);
-//        }
-//        if (properties != null) {
-//            return properties.getProperty(code.toString());
-//        } else {
-//            return null;
-//        }
-//    }
     public static String getDefaultMsg(Integer code) {
         return getDefaultMsg(code, null);
     }
 
-    public static String getDefaultMsg(Integer code, String... params) {
-        return getDefaultMsg(code, Locale.getDefault(), params);
-    }
-
     public static String getDefaultMsg(Integer code, Locale locale, String... params) {
         assert code != null;
-        if (locale == null) locale = Locale.getDefault();
+        if (locale == null) {
+            locale = Locale.getDefault();
+        }
 
         getResourceBundleMap(locale);
         ResourceBundle resourceBundle = resourceBundleMap.get(locale);
@@ -49,7 +36,6 @@ public class ResponseDefaultMsg {
         return messageFormat.format(params);
     }
 
-
 //    public MessageFormat
 
     /**
@@ -58,9 +44,10 @@ public class ResponseDefaultMsg {
      * @param locale
      */
     private static void getResourceBundleMap(Locale locale) {
-        assert locale != null;
+        Objects.requireNonNull(locale);
         if (resourceBundleMap == null) {
-            synchronized (ResponseDefaultMsg.class) {//此处this指的是调用者的线程对象
+            //此处this指的是调用者的线程对象
+            synchronized (ResponseDefaultMsg.class) {
                 if (resourceBundleMap == null) {
                     resourceBundleMap = new ConcurrentHashMap<Locale, ResourceBundle>();
                 }
@@ -68,7 +55,7 @@ public class ResponseDefaultMsg {
         }
 
         if (!resourceBundleMap.containsKey(locale)) {
-            resourceBundleMap.put(locale, ResourceBundle.getBundle(resourceBundleName, locale));
+            resourceBundleMap.put(locale, ResourceBundle.getBundle(RESOURCE_BUNDLE_NAME, locale));
         }
 
     }
