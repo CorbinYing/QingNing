@@ -1,6 +1,7 @@
 package com.xiesu.commonbase.response;
 
 import java.io.Serializable;
+import java.text.MessageFormat;
 import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -40,25 +41,41 @@ public class ResponseResult implements Serializable {
 
     public static class ResponseBuilder {
 
+        private Integer code;
+
+        private String msg;
+
+        /**
+         * msg 格式化参数
+         */
+        private Object[] params;
+
         //根据请求头 包含Accept-Language获取Locale，获取不到使用defaultLocale
         private final Locale locale = LocaleContextHolder.getLocale();
 
         //使用有序map
         private final Map<Object, Object> response = new LinkedHashMap<>();
 
+
         private ResponseBuilder() {
         }
 
 
         public ResponseBuilder errCode(int code) {
-            response.put(ERR_CODE_KEY, code);
+            this.code = code;
             return this;
         }
 
         public ResponseBuilder errMsg(String msg) {
-            response.put(ERR_MSG_KEY, msg);
+            this.msg = msg;
             return this;
         }
+
+        public ResponseBuilder params(Object... params) {
+            this.params = params;
+            return this;
+        }
+
 
         public ResponseBuilder item(String key, Object value) {
             response.put(Objects.requireNonNull(key), value);
@@ -71,16 +88,21 @@ public class ResponseResult implements Serializable {
         }
 
         public ResponseResult build() {
-            Assert.isTrue(response.containsKey(ERR_CODE_KEY), "返回值必须包含err_code");
-            boolean flag = !response.containsKey(ERR_MSG_KEY) || StringUtils.isBlank(
-                    (String) response.get(ERR_MSG_KEY));
-            if (flag) {
-                //默认消息msg则进行国际化处理
-                response.put(ERR_MSG_KEY,
-                        ResponseDefaultMsg.getDefaultMsg((Integer) response.get(ERR_CODE_KEY),
-                                locale));
+            Assert.isTrue(Objects.nonNull(code), "返回值必须包含err_code");
+
+            //消息msg则进行国际化处理
+            if (StringUtils.isNoneBlank(msg)) {
+                this.msg = MessageFormat.format(msg, params);
+            } else {
+                this.msg = ResponseDefaultMsg.getDefaultMsg(code, locale, params);
             }
-            return new ResponseResult(response);
+
+            Map<Object, Object> map = new LinkedHashMap<>();
+            map.put(ERR_CODE_KEY, this.code);
+            map.put(ERR_MSG_KEY, this.msg);
+            map.putAll(this.response);
+
+            return new ResponseResult(map);
         }
 
     }

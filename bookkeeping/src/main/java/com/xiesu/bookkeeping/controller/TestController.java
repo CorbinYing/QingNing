@@ -1,7 +1,9 @@
 package com.xiesu.bookkeeping.controller;
 
 import com.xiesu.bookkeeping.service.Teacher;
+import com.xiesu.commonbase.except.ExposedException;
 import com.xiesu.commonbase.handler.ResponseHandlerAdvice;
+import com.xiesu.commonbase.response.ResponseCode;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,4 +51,10 @@ public class TestController {
         return "1";
     }
 
+
+
+    @GetMapping("/6")
+    public String teswwtww2(){
+        throw new ExposedException(ResponseCode.SUCC_0, new Object[]{"zhangsan，lisi，王武"});
+    }
 }

@@ -9,6 +9,8 @@ import org.springframework.util.Assert;
 
 /**
  * 自定义读取国际化配置文件
+ *
+ * @author xiesu
  */
 @Slf4j
 public class ResponseDefaultMsg {
@@ -22,7 +24,23 @@ public class ResponseDefaultMsg {
         return getDefaultMsg(code, null);
     }
 
-    public static String getDefaultMsg(Integer code, Locale locale, String... params) {
+    /**
+     * 格式化默认消息，,param 为null 则不进行格式化,参数个数小于表达式参数时，按顺序格式化，剩余表达式的不进行格式化 参数个数大于表达式参数时，只对第一个参数进行格式化
+     * partern="{0},hello" param="lisi"  ----->result="lisi,hello" <p/>
+     * <p>
+     * partern="{0},{1},hello" param="lisi"  ----->result="lisi,{1},hello"
+     * <p/>
+     * partern="{0},{1},hello" param="lisi,zhangsan,wangwu"
+     * ----->result="lisizhangsanwangwu,{1},hello"
+     * <p/>
+     * partern="hello" param="lisi" ----->result="hello"
+     *
+     * @param code   错误码
+     * @param locale Local
+     * @param params 允许为null
+     * @return string msg
+     */
+    public static String getDefaultMsg(Integer code, Locale locale, Object... params) {
         assert code != null;
         if (locale == null) {
             locale = Locale.getDefault();
@@ -31,12 +49,9 @@ public class ResponseDefaultMsg {
         getResourceBundleMap(locale);
         ResourceBundle resourceBundle = resourceBundleMap.get(locale);
         String msg = resourceBundle.getString(String.valueOf(code));
-        MessageFormat messageFormat = new MessageFormat(msg);
 
-        return messageFormat.format(params);
+        return MessageFormat.format(msg, params);
     }
-
-//    public MessageFormat
 
     /**
      * 获取指定local的ResourceBundle
@@ -49,7 +64,7 @@ public class ResponseDefaultMsg {
             //此处this指的是调用者的线程对象
             synchronized (ResponseDefaultMsg.class) {
                 if (resourceBundleMap == null) {
-                    resourceBundleMap = new ConcurrentHashMap<Locale, ResourceBundle>();
+                    resourceBundleMap = new ConcurrentHashMap<>();
                 }
             }
         }

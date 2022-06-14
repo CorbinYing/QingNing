@@ -8,9 +8,13 @@ import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
+/**
+ * @author xiesu
+ */
 @RestControllerAdvice
 public class ResponseHandlerAdvice implements ResponseBodyAdvice<Object> {
 
@@ -48,6 +52,7 @@ public class ResponseHandlerAdvice implements ResponseBodyAdvice<Object> {
             MediaType selectedContentType, Class selectedConverterType, ServerHttpRequest request,
             ServerHttpResponse response) {
 
+        //该类型为全局异常封装处理
         if (body instanceof ResponseResult) {
             return ((ResponseResult) body).getResult();
         } else if (body instanceof Map) {
