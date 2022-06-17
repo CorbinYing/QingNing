@@ -54,6 +54,8 @@ public class ResponseHandlerAdvice implements ResponseBodyAdvice<Object> {
 
         //该类型为全局异常封装处理
         if (body instanceof ResponseResult) {
+            //设置http响应错误码，默认成功200，失败500
+            response.setStatusCode(((ResponseResult) body).getHttpStatus());
             return ((ResponseResult) body).getResult();
         } else if (body instanceof Map) {
             return ResponseResult.success()

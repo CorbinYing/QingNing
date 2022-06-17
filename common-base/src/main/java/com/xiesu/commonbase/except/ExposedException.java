@@ -3,6 +3,8 @@ package com.xiesu.commonbase.except;
 import java.text.MessageFormat;
 import java.util.Objects;
 import lombok.Getter;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
  * 可向调用者公开的异常，对于不可向外部暴露的异常（例如：IOEXception_RunTimeException），则应该被拦截，打印日常信息，但对外部隐藏异常内容，显示系统内部错误即可。
@@ -11,6 +13,7 @@ import lombok.Getter;
  * @author xiesu
  */
 @Getter
+@ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR,reason = "系统内部异常")
 public class ExposedException extends RuntimeException {
 
     private final Integer code;

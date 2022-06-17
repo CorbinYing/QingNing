@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Objects;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.http.HttpStatus;
 import org.springframework.util.Assert;
 
 
@@ -22,13 +23,15 @@ public class ResponseResult implements Serializable {
     private final static String ERR_MSG_KEY = "err_msg";
     private final Map<Object, Object> result;
 
+    private final HttpStatus httpStatus;
+
 
     public static ResponseBuilder success() {
-        return new ResponseBuilder().errCode(ResponseCode.SUCC_0);
+        return new ResponseBuilder(HttpStatus.OK).errCode(ResponseCode.SUCC_0);
     }
 
     public static ResponseBuilder faild() {
-        return new ResponseBuilder();
+        return new ResponseBuilder(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 
@@ -37,6 +40,10 @@ public class ResponseResult implements Serializable {
      */
     public Map<Object, Object> getResult() {
         return result;
+    }
+
+    public HttpStatus getHttpStatus() {
+        return httpStatus;
     }
 
     public static class ResponseBuilder {
@@ -56,8 +63,10 @@ public class ResponseResult implements Serializable {
         //使用有序map
         private final Map<Object, Object> response = new LinkedHashMap<>();
 
+        private final HttpStatus httpStatus;
 
-        private ResponseBuilder() {
+        private ResponseBuilder(HttpStatus httpStatus) {
+            this.httpStatus = httpStatus;
         }
 
 
@@ -102,14 +111,15 @@ public class ResponseResult implements Serializable {
             map.put(ERR_MSG_KEY, this.msg);
             map.putAll(this.response);
 
-            return new ResponseResult(map);
+            return new ResponseResult(httpStatus, map);
         }
 
     }
 
 
-    private ResponseResult(Map<Object, Object> response) {
+    private ResponseResult(HttpStatus httpStatus, Map<Object, Object> response) {
         this.result = response;
+        this.httpStatus = httpStatus;
     }
 
 

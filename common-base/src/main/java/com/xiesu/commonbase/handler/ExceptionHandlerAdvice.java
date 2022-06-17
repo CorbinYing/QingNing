@@ -21,10 +21,14 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ExceptionHandlerAdvice {
 
+    /**
+     * 全局处理ExposedException 并进行封装
+     */
     @ExceptionHandler(value = ExposedException.class)
     public ResponseResult handleServiceException(ExposedException e) {
         log.error(e.getClass().getName(), e);
-        return ResponseResult.faild()
+        return ResponseResult
+                .faild()
                 .params(e.getParams())
                 .errCode(e.getCode())
                 .errMsg(e.getMsg())

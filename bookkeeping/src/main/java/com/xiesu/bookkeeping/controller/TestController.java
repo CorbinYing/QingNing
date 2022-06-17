@@ -55,6 +55,6 @@ public class TestController {
 
     @GetMapping("/6")
     public String teswwtww2(){
-        throw new ExposedException(ResponseCode.SUCC_0, new Object[]{"zhangsan，lisi，王武"});
+        throw new ExposedException(ResponseCode.ERR_10001, new Object[]{"zhangsan，lisi，王武"});
     }
 }
