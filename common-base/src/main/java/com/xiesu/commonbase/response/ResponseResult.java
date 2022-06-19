@@ -21,8 +21,15 @@ public class ResponseResult implements Serializable {
 
     private final static String ERR_CODE_KEY = "err_code";
     private final static String ERR_MSG_KEY = "err_msg";
+
+    /**
+     * {@link #success()}或{@link #faild()}builder的构建结果，包含code，msg
+     */
     private final Map<Object, Object> result;
 
+    /**
+     * 返回结果的http状态
+     */
     private final HttpStatus httpStatus;
 
 
@@ -70,32 +77,62 @@ public class ResponseResult implements Serializable {
         }
 
 
+        /**
+         * 设置错误吗
+         *
+         * @param code notnull
+         */
         public ResponseBuilder errCode(int code) {
             this.code = code;
             return this;
         }
 
+        /**
+         * 设置错误消息，没有错误消息则使用code获取默认消息
+         *
+         * @param msg errMsg，nullable
+         */
         public ResponseBuilder errMsg(String msg) {
             this.msg = msg;
             return this;
         }
 
+        /**
+         * 设置格式化消息的参数，{@link #msg}不为 空，则进行格式化；否则获取默认消息并进行格式化
+         *
+         * @param params nullable
+         */
         public ResponseBuilder params(Object... params) {
             this.params = params;
             return this;
         }
 
 
+        /**
+         * 具体的结果值
+         *
+         * @param key   notnull
+         * @param value nullable
+         */
         public ResponseBuilder item(String key, Object value) {
             response.put(Objects.requireNonNull(key), value);
             return this;
         }
 
+        /**
+         * 具体的结果值
+         *
+         * @param map notnull
+         */
         public ResponseBuilder item(Map<Object, Object> map) {
+            Objects.requireNonNull(map, "map不能为null");
             response.putAll(map);
             return this;
         }
 
+        /**
+         * 构建外部结果类
+         */
         public ResponseResult build() {
             Assert.isTrue(Objects.nonNull(code), "返回值必须包含err_code");
 

@@ -5,6 +5,11 @@ import java.io.Serializable;
 public class ResponseCode implements Serializable {
 
     /**
+     * 系统内部异常，一般不会手动调用
+     */
+    public static final Integer ERR_SYSTEM = -1;
+
+    /**
      * 成功
      */
     public static final Integer SUCC_0 = 0;
@@ -33,7 +38,7 @@ public class ResponseCode implements Serializable {
 
 
     /**
-     *验证码发送失败
+     * 验证码发送失败
      */
     public static final Integer ERR_12001 = 12001;
 
@@ -44,7 +49,7 @@ public class ResponseCode implements Serializable {
     /**
      * 验证码已失效
      */
-    public static final Integer ERR_12003= 12003;
+    public static final Integer ERR_12003 = 12003;
 
 
     /**

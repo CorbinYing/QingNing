@@ -12,21 +12,16 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  *
  * @author xiesu
  */
-@Getter
-@ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR,reason = "系统内部异常")
-public class ExposedException extends RuntimeException {
+//@ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
+public class ExposedException extends AbstractCustomerException {
 
-    private final Integer code;
-    private String msg;
-
-    private Object[] params;
 
     /**
      * Constructs a new runtime exception with the specified detail message. The cause is not
      * initialized, and may subsequently be initialized by a call to {@link #initCause}.
      */
     public ExposedException(Integer code) {
-        this.code = code;
+        super(code, null, null);
     }
 
     /**
@@ -34,26 +29,29 @@ public class ExposedException extends RuntimeException {
      * initialized, and may subsequently be initialized by a call to {@link #initCause}.
      */
     public ExposedException(Integer code, String msg) {
-        this.code = Objects.requireNonNull(code);
-        this.msg = msg;
+        super(code, msg, null);
     }
 
 
+    /**
+     * 使用传入的参数对默认消息进行格式化,具体格式化方式{@link java.text.MessageFormat}
+     *
+     * @param code   code notnull
+     * @param params nullable
+     */
     public ExposedException(Integer code, Object... params) {
-        this.code = Objects.requireNonNull(code);
-        this.params = params;
+        super(code, null, params);
     }
 
     /**
-     * 根据传入的参数进行msg 进行格式化
+     * 根据传入的参数进行msg 进行格式化,具体格式化方式{@link java.text.MessageFormat}
      *
      * @param code   code
      * @param msg    not null
      * @param params 参数
      */
-    public ExposedException(Integer code, String msg, String... params) {
-        Objects.requireNonNull(msg);
-        this.code = Objects.requireNonNull(code);
-        this.msg = MessageFormat.format(msg, (Object) params);
+    public ExposedException(Integer code, String msg, Object... params) {
+        super(code, MessageFormat.format(Objects.requireNonNull(msg), params), null);
     }
+
 }

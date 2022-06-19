@@ -25,6 +25,8 @@ public class ResponseDefaultMsg {
     }
 
     /**
+     * 具体格式化方式{@link java.text.MessageFormat}
+     *
      * 格式化默认消息，,param 为null 则不进行格式化,参数个数小于表达式参数时，按顺序格式化，剩余表达式的不进行格式化 参数个数大于表达式参数时，只对第一个参数进行格式化
      * partern="{0},hello" param="lisi"  ----->result="lisi,hello" <p/>
      * <p>
@@ -56,7 +58,6 @@ public class ResponseDefaultMsg {
     /**
      * 获取指定local的ResourceBundle
      *
-     * @param locale
      */
     private static void getResourceBundleMap(Locale locale) {
         Objects.requireNonNull(locale);

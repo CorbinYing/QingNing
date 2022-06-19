@@ -8,7 +8,6 @@ import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
-import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
@@ -54,15 +53,20 @@ public class ResponseHandlerAdvice implements ResponseBodyAdvice<Object> {
 
         //该类型为全局异常封装处理
         if (body instanceof ResponseResult) {
+
             //设置http响应错误码，默认成功200，失败500
             response.setStatusCode(((ResponseResult) body).getHttpStatus());
             return ((ResponseResult) body).getResult();
+
         } else if (body instanceof Map) {
+
             return ResponseResult.success()
                     .item((Map<Object, Object>) body)
                     .build()
                     .getResult();
+
         } else if (body instanceof String) {
+
             //String 是直接返回，需要手动转json，不然会报错
             try {
                 return new ObjectMapper().writeValueAsString(ResponseResult.success()
@@ -72,6 +76,7 @@ public class ResponseHandlerAdvice implements ResponseBodyAdvice<Object> {
             } catch (JsonProcessingException e) {
                 throw new RuntimeException(e);
             }
+
         }
 
         return ResponseResult
