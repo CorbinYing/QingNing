@@ -16,8 +16,7 @@
     <module>eureka-server</module>
     <module>nacos-config</module>
     <module>bookkeeping</module>
-    <module>common-base</module>
-    <module>common-utils</module>
+    <module>common</module>
     <module>security-server</module>
     <module>mybaties-generator</module>
     <module>powerjob-server</module>

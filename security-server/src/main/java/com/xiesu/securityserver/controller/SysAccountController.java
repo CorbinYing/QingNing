@@ -2,7 +2,7 @@ package com.xiesu.securityserver.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.xiesu.commonbase.controller.BaseController;
+import com.xiesu.common.controller.BaseController;
 
 /**
  * <p>

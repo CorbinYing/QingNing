@@ -1,9 +1,9 @@
 package com.xiesu.bookkeeping.controller;
 
 import com.xiesu.bookkeeping.service.Teacher;
-import com.xiesu.commonbase.except.ExposedException;
-import com.xiesu.commonbase.handler.ResponseHandlerAdvice;
-import com.xiesu.commonbase.response.ResponseCode;
+import com.xiesu.common.except.ExposedException;
+import com.xiesu.common.handler.ResponseHandlerAdvice;
+import com.xiesu.common.response.ResponseCode;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;

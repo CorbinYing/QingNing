@@ -1,6 +1,5 @@
 spring:
   datasource:
-    #    \u4E0B\u9762\u56DB\u9879\u4E3Ajdbc\u7684\u901A\u7528\u914D\u7F6E\uFF0C\u4E5F\u53EF\u4EE5\u653E\u5728druid\u6807\u7B7E\u4E0B
     url: jdbc:mysql://127.0.0.1:3306/qingning
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root

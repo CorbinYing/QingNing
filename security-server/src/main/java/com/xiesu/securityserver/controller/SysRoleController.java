@@ -1,6 +1,6 @@
 package com.xiesu.securityserver.controller;
 
-import com.xiesu.commonbase.handler.ResponseHandlerAdvice;
+import com.xiesu.common.handler.ResponseHandlerAdvice;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +8,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.xiesu.commonbase.controller.BaseController;
+import com.xiesu.common.controller.BaseController;
 
 /**
  * <p>

@@ -2,8 +2,7 @@ package com.xiesu.securityserver.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.google.common.base.Objects;
-import com.xiesu.commonbase.domain.AbstractEntity;
+import com.xiesu.common.domain.AbstractEntity;
 import java.io.Serializable;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
