@@ -3,7 +3,6 @@ package com.xiesu.common.handler;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xiesu.common.response.AbstractResponse;
-import com.xiesu.common.response.ErrResponseResult;
 import com.xiesu.common.response.OkResponseResult;
 import java.util.Map;
 import org.springframework.core.MethodParameter;
@@ -62,6 +61,7 @@ public class ResponseHandlerAdvice implements ResponseBodyAdvice<Object> {
             ServerHttpResponse response) {
         //处理httpStatus
         handleHttpStatus(response, body);
+        //格式化返回结果
         body = formatBody(body);
         //TODO :加密body
         return body;

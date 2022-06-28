@@ -3,29 +3,46 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
+
   <parent>
     <groupId>com.xiesu</groupId>
     <version>${project.version}</version>
     <artifactId>QingNing</artifactId>
   </parent>
 
-  <artifactId>bookkeeping</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <name>bookkeeping</name>
-  <description>bookkeeping</description>
-  <properties>
-    <java.version>1.8</java.version>
-  </properties>
+  <artifactId>authorization-server</artifactId>
+  <name>authorization-server</name>
+  <description>authorization</description>
 
   <dependencies>
     <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-undertow</artifactId>
+      <groupId>com.xiesu</groupId>
+      <artifactId>common</artifactId>
+      <version>${project.version}</version>
     </dependency>
+
+    
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-undertow</artifactId>
+    </dependency>
+
+
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <optional>true</optional>
+    </dependency>
+
+    <dependency>
+      <groupId>com.baomidou</groupId>
+      <artifactId>mybatis-plus-boot-starter</artifactId>
+    </dependency>
+
     <!-- MySQL 驱动 -->
     <dependency>
       <groupId>mysql</groupId>
@@ -40,25 +57,32 @@
     <dependency>
       <groupId>com.alibaba</groupId>
       <artifactId>druid-spring-boot-starter</artifactId>
-
-    </dependency>
-    <dependency>
-      <groupId>com.xiesu</groupId>
-      <artifactId>common</artifactId>
-      <version>${project.version}</version>
-      <scope>compile</scope>
     </dependency>
 
+    <!--    引入 Spring Security-->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-security</artifactId>
     </dependency>
 
+    <!-- 授权服务器-->
     <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-oauth2-client</artifactId>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-oauth2-authorization-server</artifactId>
     </dependency>
 
+    <dependency>
+      <groupId>org.springdoc</groupId>
+      <artifactId>springdoc-openapi-ui</artifactId>
+    </dependency>
+
+
+
+    <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-netflix-eureka-client -->
+    <!--        <dependency>-->
+    <!--            <groupId>org.springframework.cloud</groupId>-->
+    <!--            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>-->
+    <!--        </dependency>-->
 
   </dependencies>
 
@@ -67,6 +91,14 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
+        <configuration>
+          <excludes>
+            <exclude>
+              <groupId>org.projectlombok</groupId>
+              <artifactId>lombok</artifactId>
+            </exclude>
+          </excludes>
+        </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

@@ -8,6 +8,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.Assert;
 
+/**
+ * Action：程序异常统一返回结果
+ *
+ * @author xiesu
+ */
 @Getter
 public class ErrResponseResult extends AbstractResponse {
 
@@ -34,8 +39,7 @@ public class ErrResponseResult extends AbstractResponse {
     /**
      * 构造异常返回结果
      *
-     * @param e
-     * @return
+     * @param e e
      */
     public static ErrResponseResult faild(AbstractCustomerException e) {
         return new ErrResponseResult(e);

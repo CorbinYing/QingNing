@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 
 
 /**
- * Action: 构建统一返回结果
+ * Action: 正常情况下构建统一返回结果
  *
  * @author xiesu
  */

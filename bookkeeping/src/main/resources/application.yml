@@ -1,3 +1,14 @@
+server:
+  port: 8080
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    org.springframework.security: INFO
+    org.springframework.security.oauth2: INFO
+#    org.springframework.boot.autoconfigure: DEBUG
+
 spring:
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/qingning
@@ -5,3 +16,40 @@ spring:
     username: root
     #    password: 123456
     password: Aa123456
+
+
+  thymeleaf:
+    cache: false
+  security:
+    oauth2:
+      client:
+        registration:
+          messaging-client-oidc:
+            provider: spring
+            client-id: messaging-client
+            client-secret: secret
+            authorization-grant-type: authorization_code
+            redirect-uri: "http://127.0.0.1:8080/login/oauth2/code/{registrationId}"
+            scope: openid
+            client-name: messaging-client-oidc
+          messaging-client-authorization-code:
+            provider: spring
+            client-id: messaging-client
+            client-secret: secret
+            authorization-grant-type: authorization_code
+            redirect-uri: "http://127.0.0.1:8080/authorized"
+            scope: message.read,message.write
+            client-name: messaging-client-authorization-code
+          messaging-client-client-credentials:
+            provider: spring
+            client-id: messaging-client
+            client-secret: secret
+            authorization-grant-type: client_credentials
+            scope: message.read,message.write
+            client-name: messaging-client-client-credentials
+        provider:
+          spring:
+            issuer-uri: http://localhost:9000
+
+messages:
+  base-uri: http://127.0.0.1:8090/messages
